@@ -6,14 +6,9 @@ import sys
 from core.create_base_app import create_base_app
 sys.path.append('..\python_template')
 
+from routing.books import router as books_routing
 
-from app.api import routers
-from app.core.config import configs
-from app.core.middlewares import ActionLoggingMiddleware
-from app.core.container import Container
 
-container = Container()
-db = container.db()
 
 app = create_base_app(configs)
 

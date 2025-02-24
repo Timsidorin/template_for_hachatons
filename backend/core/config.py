@@ -2,7 +2,7 @@ from pydantic_settings import BaseSettings
 import os
 
 class Configs(BaseSettings):
-    API: str = "/api"
+    API: str = "/routing"
 
     ENV: str = os.getenv("ENV", "dev")
     DEBUG: bool = ENV == "dev"
