@@ -4,16 +4,15 @@
 #
 import sys
 from core.create_base_app import create_base_app
-sys.path.append('..\python_template')
 
 from routing.books import router as books_routing
-
+from core.config import configs
 
 
 app = create_base_app(configs)
 
 app.include_router(routers, prefix=configs.API)
-app.add_middleware(ActionLoggingMiddleware)
+
 
 if __name__ == '__main__':
     import uvicorn

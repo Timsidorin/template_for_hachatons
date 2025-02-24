@@ -12,6 +12,8 @@ def create_base_app(configs):
         title=configs.PROJECT_NAME,
         openapi_url=f"{configs.API}/openapi.json",
         version="0.0.1",
+        description="Апихи для хакатона ЛЦТ"
+
     )
 
     @app.get("/")
