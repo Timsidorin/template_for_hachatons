@@ -2,43 +2,25 @@
 Точка входа в backend
 """
 #
-# from fastapi import FastAPI
-# from fastapi.middleware.cors import CORSMiddleware
-# from fastapi.middleware.trustedhost import TrustedHostMiddleware
-#
-# from app.api.api_router import api_router, auth_router
-# from app.core.config import get_settings
-#
-# app = FastAPI(
-#     title="minimal fastapi postgres template",
-#     version="6.1.0",
-#     description="https://github.com/rafsaf/minimal-fastapi-postgres-template",
-#     openapi_url="/openapi.json",
-#     docs_url="/",
-# )
-#
-# app.include_router(auth_router)
-# app.include_router(api_router)
-#
-#
-# app.add_middleware(
-#     CORSMiddleware,
-#     allow_origins=[
-#         str(origin).rstrip("/")
-#         for origin in get_settings().security.backend_cors_origins
-#     ],
-#     allow_credentials=True,
-#     allow_methods=["*"],
-#     allow_headers=["*"],
-# )
-#
-# # Guards against HTTP Host Header attacks
-# app.add_middleware(
-#     TrustedHostMiddleware,
-#     allowed_hosts=get_settings().security.allowed_hosts,
-# )
-#
+import sys
+from core.create_base_app import create_base_app
+sys.path.append('..\python_template')
 
 
-# pip install fastapi
-# uvicorn main:app --reload
+from app.api import routers
+from app.core.config import configs
+from app.core.middlewares import ActionLoggingMiddleware
+from app.core.container import Container
+
+container = Container()
+db = container.db()
+
+app = create_base_app(configs)
+
+app.include_router(routers, prefix=configs.API)
+app.add_middleware(ActionLoggingMiddleware)
+
+if __name__ == '__main__':
+    import uvicorn
+    uvicorn.run("main:app", host="localhost", port=8007)
+    # uvicorn.run("main:app", host="localhost", port=8000, reload=True)
