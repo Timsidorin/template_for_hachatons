@@ -2,37 +2,18 @@
 Точка входа в backend
 """
 #
-from contextlib import asynccontextmanager
-from typing import AsyncGenerator
+
+
 from fastapi import FastAPI, APIRouter
-from fastapi.middleware.cors import CORSMiddleware
-from fastapi.staticfiles import StaticFiles
+
+from routing import books_router
 from core.config import configs
-from loguru import logger
-
-@asynccontextmanager
-async def lifespan(app: FastAPI) -> AsyncGenerator[dict, None]:
-    """Управление жизненным циклом приложения."""
-    logger.info("Инициализация приложения...")
-    yield
-    logger.info("Завершение работы приложения...")
+from core.create_base_app import create_base_app
 
 
-app = FastAPI(lifespan=lifespan,
-              title=configs.PROJECT_NAME
-              )
 
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"]
-)
-
-@app.get("/")
-def home_page():
-    return {"message": "Запустилось и работает!"}
+app = create_base_app(configs)
+app.include_router(books_router.router)
 
 
 if __name__ == '__main__':
