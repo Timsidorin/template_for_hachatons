@@ -14,7 +14,7 @@ class Configs(BaseSettings):
     ALGORITHM: str = Field(default="HS256", env="ALGORITHM")  # Алгоритм шифрования для JWT
     ACCESS_TOKEN_EXPIRE_MINUTES: int = Field(default=30, env="ACCESS_TOKEN_EXPIRE_MINUTES")  # Время жизни токена
 
-    # Настройки базы данных (пример для PostgreSQL)
+    # Настройки базы данных
     DATABASE_URL: Optional[str] = Field(default=None, env="DATABASE_URL")  # URL для подключения к БД
     DB_HOST: Optional[str] = Field(default="localhost", env="DB_HOST")
     DB_PORT: Optional[int] = Field(default=5432, env="DB_PORT")
@@ -24,3 +24,6 @@ class Configs(BaseSettings):
 
 
 configs = Configs()
+def get_db_url():
+    return (f"postgresql+asyncpg://{configs.DB_USER}:{configs.DB_PASSWORD}@"
+            f"{configs.DB_HOST}:{configs.DB_PORT}/{configs.DB_NAME}")
