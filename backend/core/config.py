@@ -14,8 +14,7 @@ class Configs(BaseSettings):
     ALGORITHM: str = Field(default="HS256", env="ALGORITHM")  # Алгоритм шифрования для JWT
     ACCESS_TOKEN_EXPIRE_MINUTES: int = Field(default=30, env="ACCESS_TOKEN_EXPIRE_MINUTES")  # Время жизни токена
 
-    # Настройки базы данных
-    DATABASE_URL: Optional[str] = Field(default=None, env="DATABASE_URL")  # URL для подключения к БД
+    # Настройки БД
     DB_HOST: Optional[str] = Field(default="localhost", env="DB_HOST")
     DB_PORT: Optional[int] = Field(default=5432, env="DB_PORT")
     DB_USER: Optional[str] = Field(default="postgres", env="DB_USER")
