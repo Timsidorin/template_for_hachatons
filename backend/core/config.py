@@ -26,3 +26,7 @@ configs = Configs()
 def get_db_url():
     return (f"postgresql+asyncpg://{configs.DB_USER}:{configs.DB_PASSWORD}@"
             f"{configs.DB_HOST}:{configs.DB_PORT}/{configs.DB_NAME}")
+
+
+def get_auth_data():
+    return {"secret_key": Configs.SECRET_KEY, "algorithm": Configs.ALGORITHM}

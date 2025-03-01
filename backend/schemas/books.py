@@ -1,4 +1,6 @@
 from datetime import datetime
+from typing import List
+
 from pydantic import BaseModel
 
 
@@ -14,3 +16,6 @@ class Book(BaseModel):
     annotation: str
     date_publishing: datetime
     author: Author
+
+
+
