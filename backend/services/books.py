@@ -16,5 +16,3 @@ class BookService:
     def create_book(self) -> Book:
         result = self.repository.create_book()
         return result
-
-

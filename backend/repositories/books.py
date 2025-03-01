@@ -1,16 +1,19 @@
 from datetime import datetime
 from typing import List
 
-from backend.schemas.books import Book, Author
+from sqlalchemy.ext.asyncio import AsyncSession
+
+from backend.schemas.books import Book
 from backend.services import  books
+
+from typing import List
+
 
 
 class BookRepository:
 
     def get_books(self) -> List[Book]:
-
-
-        return books
+        ...
 
     def create_book(self) -> Book:
         ...
