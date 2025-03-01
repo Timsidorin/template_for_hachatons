@@ -3,6 +3,10 @@ from pydantic import Field
 from typing import Optional
 import os
 
+
+
+
+
 class Configs(BaseSettings):
 
     #Для инициализации проекта#
@@ -18,13 +22,13 @@ class Configs(BaseSettings):
     DB_HOST: Optional[str] = Field(default="localhost", env="DB_HOST")
     DB_PORT: Optional[int] = Field(default=5432, env="DB_PORT")
     DB_USER: Optional[str] = Field(default="postgres", env="DB_USER")
-    DB_NAME: Optional[str] = Field(default="mydb", env="DB_NAME")
-    DB_PASS: Optional[str] = Field(default=None, env="DB_PASS")
+    DB_NAME: Optional[str] = Field(default="postgres", env="DB_NAME")
+    DB_PASS: Optional[str] = Field(default="admin", env="DB_PASS")
 
 
 configs = Configs()
 def get_db_url():
-    return (f"postgresql+asyncpg://{configs.DB_USER}:{configs.DB_PASSWORD}@"
+    return (f"postgresql+asyncpg://{configs.DB_USER}:{configs.DB_PASS}@"
             f"{configs.DB_HOST}:{configs.DB_PORT}/{configs.DB_NAME}")
 
 
