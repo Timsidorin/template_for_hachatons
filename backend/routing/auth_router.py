@@ -6,7 +6,7 @@ from starlette import status
 from backend.schemas.users import UserRegister
 from backend.schemas.books import Book
 from backend.depends import get_book_service, get_user_service
-from backend.schemas.users import UserRegister, UserLogin
+from backend.schemas.users import UserRegister, UserLogin, User
 from backend.services.books import BookService
 from backend.services.users import UserService
 from backend.utils.security import get_password_hash
@@ -52,7 +52,7 @@ async def login_user(
 async def get_me(
     token: str = Depends(oauth2_scheme),
     user_service: UserService = Depends(get_user_service)
-):
+) -> User:
     current_user = await user_service.get_current_user(token)
     return current_user
 
